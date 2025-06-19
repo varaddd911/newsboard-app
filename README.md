@@ -1,8 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AWS News Upload Application
+
+A Next.js application for uploading and viewing news articles using AWS services.
+
+## Features
+
+- Upload news articles with images to AWS
+- View all news articles in a responsive grid layout
+- Serverless architecture using AWS Lambda and API Gateway
+- Modern UI with Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 16.x or later
+- An AWS account with appropriate permissions
+- API Gateway endpoints for uploading and fetching news
+
+### Environment Setup
+
+1. Clone the repository
+2. Copy the example environment file and update with your AWS endpoints:
+
+```bash
+cp .env.local.example .env.local
+```
+
+3. Update the `.env.local` file with your actual API Gateway endpoints:
+
+```
+NEXT_PUBLIC_API_GATEWAY_ENDPOINT=your-api-gateway-endpoint-for-uploading
+NEXT_PUBLIC_API_GATEWAY_GET_NEWS_ENDPOINT=your-api-gateway-endpoint-for-getting-news
+```
+
+### Installation
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### Running the Application
 
 ```bash
 npm run dev
@@ -10,27 +51,31 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the upload form.
+Visit [http://localhost:3000/news](http://localhost:3000/news) to see the news feed.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## AWS Infrastructure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This application expects the following AWS resources:
 
-## Learn More
+- API Gateway with endpoints for:
+  - POST /news - For uploading news articles
+  - GET /news - For retrieving news articles
+- AWS Lambda functions to process requests
+- Amazon S3 bucket to store images
+- DynamoDB table to store news metadata
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For the AWS backend, consider using AWS CDK, SAM, or CloudFormation to deploy the required resources.
 
-## Deploy on Vercel
+## Built With
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org/) - React framework
+- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
+- [AWS API Gateway](https://aws.amazon.com/api-gateway/) - RESTful API
+- [AWS Lambda](https://aws.amazon.com/lambda/) - Serverless functions
