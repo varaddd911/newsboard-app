@@ -1,39 +1,49 @@
-# AWS News Upload Application
+# AWS News Upload App
 
-A Next.js application for uploading and viewing news articles using AWS services.
+A simple Next.js app to upload and view news articles with images, using AWS Lambda, DynamoDB, and S3.
 
 ## Features
 
-- Upload news articles with images to AWS
-- View all news articles in a responsive grid layout
-- Serverless architecture using AWS Lambda and API Gateway
-- Modern UI with Tailwind CSS
+- User authentication (sign up & login)
+- Only logged-in users can upload news
+- Upload news with title, description, and image
+- View all news in a modern, responsive UI
+
+## Prerequisites
+
+- Node.js 16.x or later
+- AWS account with:
+  - Lambda functions for news and auth
+  - DynamoDB table for users/news
+  - S3 bucket for images (if storing images as files)
+  - API Gateway endpoints for news and auth
 
 ## Getting Started
 
-### Prerequisites
+### 1. Clone the repository
 
-- Node.js 16.x or later
-- An AWS account with appropriate permissions
-- API Gateway endpoints for uploading and fetching news
+```bash
+# Clone the repo
+git clone <your-repo-url>
+cd aws-news-upload-app
+```
 
-### Environment Setup
+### 2. Set up environment variables
 
-1. Clone the repository
-2. Copy the example environment file and update with your AWS endpoints:
+Copy the example file and fill in your API endpoints:
 
 ```bash
 cp .env.local.example .env.local
 ```
 
-3. Update the `.env.local` file with your actual API Gateway endpoints:
+Edit `.env.local` and set:
 
 ```
-NEXT_PUBLIC_API_GATEWAY_ENDPOINT=your-api-gateway-endpoint-for-uploading
-NEXT_PUBLIC_API_GATEWAY_GET_NEWS_ENDPOINT=your-api-gateway-endpoint-for-getting-news
+NEXT_PUBLIC_API_GATEWAY_ENDPOINT=<your-news-lambda-endpoint>
+NEXT_PUBLIC_API_GATEWAY_ENDPOINT_AUTH=<your-auth-lambda-endpoint>
 ```
 
-### Installation
+### 3. Install dependencies
 
 ```bash
 npm install
@@ -43,7 +53,7 @@ yarn install
 pnpm install
 ```
 
-### Running the Application
+### 4. Run the app locally
 
 ```bash
 npm run dev
@@ -53,29 +63,35 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the upload form.
-Visit [http://localhost:3000/news](http://localhost:3000/news) to see the news feed.
+Visit [http://localhost:3000](http://localhost:3000) to use the app.
 
-## AWS Infrastructure
+## Usage
 
-This application expects the following AWS resources:
+- **Sign Up:** Create a new account with your email, name, and password.
+- **Login:** Log in with your email and password.
+- **Upload News:** After logging in, fill the form to upload news with an image.
+- **View News:** Go to `/news` to see all news articles.
+- **Logout:** Use the logout button to end your session.
 
-- API Gateway with endpoints for:
-  - POST /news - For uploading news articles
-  - GET /news - For retrieving news articles
-- AWS Lambda functions to process requests
-- Amazon S3 bucket to store images
-- DynamoDB table to store news metadata
+## AWS Backend (Required)
+
+- **Auth Lambda:** Handles `/signup` and `/login` (see `auth` Lambda example in this repo).
+- **News Lambda:** Handles news upload and fetch (see `create-news` Lambda example in this repo).
+- **DynamoDB:** Stores user and news data.
+- **S3 (optional):** Stores images if not using base64.
+- **API Gateway:** Exposes Lambda endpoints to the app.
 
 ## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
+- Deploy the frontend to Vercel, Netlify, or your server.
+- Deploy AWS backend using AWS Console, SAM, CDK, or Serverless Framework.
 
-For the AWS backend, consider using AWS CDK, SAM, or CloudFormation to deploy the required resources.
+## Tech Stack
 
-## Built With
+- Next.js
+- Tailwind CSS
+- AWS Lambda, API Gateway, DynamoDB, S3
 
-- [Next.js](https://nextjs.org/) - React framework
-- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [AWS API Gateway](https://aws.amazon.com/api-gateway/) - RESTful API
-- [AWS Lambda](https://aws.amazon.com/lambda/) - Serverless functions
+## License
+
+MIT
